@@ -31,8 +31,8 @@ export default {
             var that = this;
             var url = that.serverUrl + '/api/addPost/';
             var data = {
-	            title: 'post1',
-	            body: 'body1',
+	            title: that.post.title,
+	            body: that.post.content,
             };
             that.$http.post(url, data)
             .then(function (response) {

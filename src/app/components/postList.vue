@@ -3,6 +3,7 @@
         <div class="postContainer" v-for="post in postList" :key="post.time">
             {{post.content}}
         </div>
+        <el-button type="primary" @click="getPostList()">获取</el-button>
         <!-- <img :src="imgb" /> -->
     </div>
 </template>
@@ -34,6 +35,14 @@ export default {
                 time:2016
             }
         ];
+    },
+    methods: {
+    	getPostList(){
+    		var self = this;
+    		self.$http.get('/api/get/', function (response) {
+                console.log(response);
+		    });
+        }
     }
 };
 </script>
