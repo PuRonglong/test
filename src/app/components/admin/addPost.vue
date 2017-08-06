@@ -9,7 +9,7 @@
                     <el-input type="textarea" v-model="post.content"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+                    <el-button type="primary" @click="submitPost('ruleForm')">提交</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -27,14 +27,14 @@ export default {
         };
     },
     methods: {
-        submitForm: function () {
-            var that = this;
-            var url = that.serverUrl + '/api/addPost/';
+        submitPost: function () {
+            var self = this;
+            var url = self.serverUrl + '/api/addPost/';
             var data = {
-	            title: that.post.title,
-	            body: that.post.content,
+	            title: self.post.title,
+	            content: self.post.content,
             };
-            that.$http.post(url, data)
+            self.$http.post(url, data)
             .then(function (response) {
                 console.log(response);
             })

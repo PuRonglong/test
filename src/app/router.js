@@ -13,8 +13,11 @@ const routes = [{
     path: '',
     component: postList
 }, {
-    path: '/foo',
-    component: Foo
+	path: '/foo',
+	component: Foo
+}, {
+	path: '/postList',
+	component: postList
 }, {
     path: '/bar',
     component: Bar

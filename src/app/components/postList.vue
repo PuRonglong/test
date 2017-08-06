@@ -39,9 +39,14 @@ export default {
     methods: {
     	getPostList(){
     		var self = this;
-    		self.$http.get('/api/get/', function (response) {
-                console.log(response);
-		    });
+    		var url = self.serverUrl + '/api/getAllPosts/';
+    		self.$http.get(url)
+			    .then(function (response) {
+				    console.log(response.data);
+			    })
+			    .catch(function (error) {
+				    console.log(error);
+			    });
         }
     }
 };

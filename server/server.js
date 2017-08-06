@@ -16,11 +16,11 @@ db.once('open', function() {
 
 var PostSchema = mongoose.Schema({
 	title: {type: String, required: true},
-	body: {type: String},
+	content: {type: String},
 	tag:{type: String, enum: ['技术', '生活']},
 	postedTime: {type: Date, default: Date.now}
 },{collection: 'post'});
-var PostModel = mongoose.model("PostModel", PostSchema);
+var PostModel = mongoose.model('PostModel', PostSchema);
 
 // app.use(cors());
 
@@ -50,17 +50,35 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.get('/api/getPostList/', getAllPosts);
-
-app.post('/api/addPost/', function(req, res){
-	var post = req.body;
-	console.log(post);
-	// PostModel.create(post);
-    res.json(200);
-});
+app.get('/api/getAllPosts/', getAllPosts);
+app.post('/api/addPost/', addPost);
 
 function getAllPosts(req, res) {
+	PostModel
+		.find()
+		.then(
+			function (posts) {
+				res.json(posts);
+			},
+			function (error) {
+				res.sendStatus(400);
+			}
+		);
+}
 
+function addPost(req, res){
+	var post = req.body;
+	PostModel
+		.create(post)
+		.then(
+			function (postObj) {
+				res.json(200);
+			},
+			function (error) {
+				res.sendStatus(400);
+			}
+		);
+	res.json(200);
 }
 
 var pornt = 3001;

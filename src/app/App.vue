@@ -1,11 +1,11 @@
 <template>
 	<div>
 		<div class="content_width">
-			<!-- <el-tabs v-model="activeName" @tab-click="handleClick">
-				<el-tab-pane label="foo" name="first"></el-tab-pane>
-				<el-tab-pane label="bar" name="second"></el-tab-pane>
+			<el-tabs v-model="activeName" @tab-click="handleClick">
+				<el-tab-pane label="postList" name="first"></el-tab-pane>
+				<el-tab-pane label="addPost" name="second"></el-tab-pane>
 				<el-tab-pane label="map" name="third"></el-tab-pane>
-			</el-tabs> -->
+			</el-tabs>
 			<router-view></router-view> 
 		</div>
 	</div>
@@ -16,7 +16,7 @@ export default {
 	name: 'app',
 	data() {
 		return {
-			activeName: 'second'
+			activeName: 'first'
 		};
 	},
 	methods: {
