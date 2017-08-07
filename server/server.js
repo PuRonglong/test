@@ -39,7 +39,7 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:9090');
 
     // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS, POST, PUT, PATCH, DELETE');
 
     // Request headers you wish to allow
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
@@ -54,6 +54,21 @@ app.use(function (req, res, next) {
 
 app.get('/api/getAllPosts/', getAllPosts);
 app.post('/api/addPost/', addPost);
+app.post('/api/deletePost/', deletePost);
+
+function deletePost(req, res) {
+	var postId = req.body.postId;
+	PostModel
+		.remove({_id: postId})
+		.then(
+			function (status) {
+				res.sendStatus(200);
+			},
+			function (error) {
+				res.sendStatus(400);
+			}
+		);
+}
 
 function getAllPosts(req, res) {
 	PostModel
@@ -74,7 +89,7 @@ function addPost(req, res){
 		.create(post)
 		.then(
 			function (postObj) {
-				res.json(200);
+				res.end(200);
 			},
 			function (error) {
 				res.sendStatus(400);

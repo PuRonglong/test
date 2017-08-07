@@ -1,7 +1,8 @@
 <template>
     <div>
         <div class="postContainer" v-for="post in postList" :key="post.title">
-            {{post.content}}
+            <h3>{{post.title}}   <i class="el-icon-delete cursor" @click="deletePost(post)"></i></h3>
+            <div>{{post.content}}</div>
         </div>
         <el-button type="primary" @click="getPostList()">获取</el-button>
         <!-- <img :src="imgb" /> -->
@@ -10,7 +11,7 @@
 
 
 <script>
-import imga from '../../assets/images/logo.png'
+import imga from '../../assets/images/logo.png';
 export default {
     name: 'postList',
     data() {
@@ -20,38 +21,40 @@ export default {
         };
     },
     mounted: function(){
-        // this.postList = [
-        //     {
-        //         title: 'post1',
-        //         content: 'content1',
-        //         time: "2017"
-        //     },{
-        //         title: 'post2',
-        //         content: 'content2',
-        //         time: 2015
-        //     },{
-        //         title: 'post3',
-        //         content: 'content3',
-        //         time: 2016
-        //     }
-        // ];
+        this.getPostList();
     },
     methods: {
     	getPostList(){
             var self = this;
     		var url = self.serverUrl + '/api/getAllPosts/';
+
+		    self.postList = [];
+
     		self.$http.get(url)
 			    .then(function (response) {
-                    // self.postList.contact(response.data);
-                    // debugger;
-                    response.data.forEach(function (element) {
+                    response.data.forEach(function (post) {
                         self.postList.push({
-                            title: element.title,
-                            content: element.content
+                            title: post.title,
+                            content: post.content,
+                            postId: post._id,
+                            postedTime: post.postedTime
                         });
-                    }, this);
-                    console.log(self.postList);
+                    });
 			    })
+			    .catch(function (error) {
+				    console.log('error');
+			    });
+        },
+	    deletePost(post){
+    		var self = this;
+    		var url = self.serverUrl + '/api/deletePost/';
+    		var data = {
+    			postId: post.postId
+            };
+    		self.$http.post(url,data)
+                .then(function (response) {
+                    self.getPostList();
+                })
 			    .catch(function (error) {
 				    console.log('error');
 			    });
@@ -63,5 +66,8 @@ export default {
 <style>
 .postContainer{
     margin-bottom: 20px;
+}
+.cursor{
+    cursor: pointer;
 }
 </style>
