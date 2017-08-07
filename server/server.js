@@ -3,6 +3,8 @@ var app = express();
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var mongoose = require('mongoose');
+let promise = require('bluebird');
+mongoose.Promise = promise;
 
 mongoose.connect('mongodb://localhost/blogTest',{
 	useMongoClient: true
