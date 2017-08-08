@@ -34,12 +34,30 @@ export default {
 	            title: self.post.title,
 	            content: self.post.content,
             };
+
+            if(!data.title){
+                self.showMessage('标题为空，发布失败！', 'error');
+                return;
+            }
+            if(data.title && data.title.trim().length == 0){
+                self.showMessage('标题为空，发布失败！', 'error');
+                return;
+            }
+
             self.$http.post(url, data)
-            .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
+                .then(function (response) {
+                    self.showMessage('发布成功！', 'success');
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
+        showMessage: function(message, type) {
+            this.$message({
+                showClose: true,
+                message: message,
+                type: type || 'info'
             });
         }
     }

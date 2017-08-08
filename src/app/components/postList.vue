@@ -3,8 +3,9 @@
         <div class="postContainer" v-for="post in postList" :key="post.title">
             <h3>{{post.title}}   <i class="el-icon-delete cursor" @click="deletePost(post)"></i></h3>
             <div>{{post.content}}</div>
+            <div><el-button type="text">详情</el-button></div>
         </div>
-        <el-button type="primary" @click="getPostList()">获取</el-button>
+        <!-- <el-button type="primary" @click="getPostList()">获取</el-button> -->
         <!-- <img :src="imgb" /> -->
     </div>
 </template>
@@ -66,6 +67,7 @@ export default {
 <style>
 .postContainer{
     margin-bottom: 20px;
+    border-bottom: 1px solid black;
 }
 .cursor{
     cursor: pointer;
